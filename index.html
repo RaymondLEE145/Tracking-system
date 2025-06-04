@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>GlobalVertical Tracking</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 40px;
+    }
+    h1 {
+      color: #2a4f7c;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 300px;
+      margin-top: 20px;
+      margin-bottom: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #2a4f7c;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .result {
+      margin-top: 30px;
+      background: white;
+      padding: 20px;
+      border-radius: 5px;
+      width: 90%;
+      max-width: 500px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .step {
+      margin-bottom: 10px;
+      line-height: 1.5;
+    }
+  </style>
+</head>
+<body>
+  <h1>GlobalVertical Shipment Tracking</h1>
+  <p>Enter your tracking number:</p>
+  <input type="text" id="trackingInput" placeholder="e.g. WKRAY25022701" />
+  <button onclick="trackOrder()">Track</button>
+
+  <div class="result" id="trackingResult" style="display: none;"></div>
+
+  <script>
+    const data = {
+      "WKRAY25022701": [
+        "2025-06-01: Order Created",
+        "2025-06-02: Goods left warehouse in China",
+        "2025-06-06: Arrived at Sydney, customs clearance in progress",
+        "2025-06-08: Customs cleared, delivery arranged"
+      ],
+      "GVTEST202506": [
+        "2025-06-02: Order Received",
+        "2025-06-03: Packed and ready for shipment",
+        "2025-06-04: Onboard shipping vessel",
+        "2025-06-09: Expected arrival at destination port"
+      ]
+    };
+
+    function trackOrder() {
+      const input = document.getElementById("trackingInput").value.trim();
+      const resultDiv = document.getElementById("trackingResult");
+
+      if (data[input]) {
+        resultDiv.innerHTML = `<h3>Tracking for ${input}</h3>` + data[input].map(step => `<div class='step'>${step}</div>`).join('');
+        resultDiv.style.display = 'block';
+      } else {
+        resultDiv.innerHTML = `<h3>Tracking for ${input}</h3><div class='step'>No tracking information found. Please check your tracking number.</div>`;
+        resultDiv.style.display = 'block';
+      }
+    }
+  </script>
+</body>
+</html>
